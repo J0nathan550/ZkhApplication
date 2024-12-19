@@ -1,0 +1,25 @@
+﻿<Window
+    x:Class="ZkhApplication.Views.MainWindowView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ZkhApplication.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    Title="ЖКХ 1562"
+    MinWidth="430"
+    MinHeight="454"
+    d:Height="450"
+    d:Width="800"
+    ui:TitleBar.Background="#FF185D88"
+    ui:TitleBar.IsIconVisible="True"
+    ui:WindowHelper.UseModernWindowStyle="True"
+    Background="#FF144C6F"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid>
+        <local:NavigationPageView x:Name="NavigationPageViewControl" />
+        <local:CreateSubmissionView x:Name="CreateSubmissionViewControl" Visibility="Collapsed" />
+        <local:ViewSubmissionView x:Name="ViewSubmissionViewControl" Visibility="Collapsed" />
+    </Grid>
+</Window>

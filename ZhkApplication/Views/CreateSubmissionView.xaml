@@ -1,0 +1,255 @@
+﻿<UserControl
+    x:Class="ZkhApplication.Views.CreateSubmissionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ZkhApplication.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:viewmodels="clr-namespace:ZkhApplication.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:CreateSubmissionViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    ui:ThemeManager.RequestedTheme="Light"
+    Background="#FF144C6F"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="ui:SymbolIcon">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!--  Кнопка Назад  -->
+        <Button
+            Margin="5"
+            Click="GoBackToMain_Click"
+            Cursor="Hand"
+            FontFamily="{StaticResource RobotoFont}"
+            FontWeight="Bold"
+            Foreground="White"
+            ToolTip="Повернення на головну сторінку додатка">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <ui:SymbolIcon
+                    Width="12"
+                    Height="12"
+                    Symbol="Back" />
+                <TextBlock
+                    Grid.Row="1"
+                    FontSize="12"
+                    Text="Назад"
+                    TextTrimming="CharacterEllipsis" />
+            </Grid>
+        </Button>
+
+        <!--  Логотип та заголовок  -->
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontFamily="{StaticResource RobotoFont}"
+            FontSize="16"
+            FontWeight="ExtraBold"
+            Foreground="White"
+            Text="ЖКХ 1562 - Створення заявки"
+            TextTrimming="CharacterEllipsis"
+            ToolTip="Назва сторінки для створення нової заявки" />
+
+        <Border
+            Width="53"
+            Height="49"
+            Margin="5"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Background="#33000000"
+            CornerRadius="2"
+            Cursor="Help">
+            <Image
+                RenderOptions.BitmapScalingMode="Fant"
+                Source="/Assets/iconApp.ico"
+                ToolTip="Логотип додатку ЖКХ 1562" />
+        </Border>
+
+        <!--  Основна форма  -->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <!--  Адреса  -->
+            <TextBox
+                Name="AddressTextBox"
+                Grid.Row="0"
+                Margin="5"
+                VerticalContentAlignment="Center"
+                ui:ControlHelper.PlaceholderText="Введіть вашу домашню адресу..."
+                ui:ThemeManager.RequestedTheme="Dark"
+                FontFamily="{StaticResource RobotoFont}"
+                MaxLength="144"
+                Text="{Binding AddressText, Mode=TwoWay}"
+                ToolTip="Вкажіть точну адресу вашого будинку або квартири для обробки заявки">
+                <ui:ControlHelper.Header>
+                    <TextBlock
+                        FontFamily="{StaticResource RobotoFont}"
+                        Foreground="Red"
+                        Text="Адреса не може бути пустим!"
+                        TextTrimming="CharacterEllipsis"
+                        Visibility="{Binding AddressHeaderVisibility}" />
+                </ui:ControlHelper.Header>
+            </TextBox>
+
+            <!--  Телефон  -->
+            <TextBox
+                Name="PhoneTextBox"
+                Grid.Row="1"
+                Margin="5"
+                VerticalContentAlignment="Center"
+                ui:ControlHelper.PlaceholderText="Введіть ваш номер телефону..."
+                ui:ThemeManager.RequestedTheme="Dark"
+                FontFamily="{StaticResource RobotoFont}"
+                MaxLength="13"
+                Text="{Binding PhoneNumberText, Mode=TwoWay}"
+                ToolTip="Введіть ваш контактний номер телефону для зворотного зв'язку">
+                <ui:ControlHelper.Header>
+                    <Grid>
+                        <TextBlock
+                            FontFamily="{StaticResource RobotoFont}"
+                            Foreground="Red"
+                            Text="Номер телефону не може бути пустим!"
+                            TextTrimming="CharacterEllipsis"
+                            Visibility="{Binding PhoneNumberHeaderNullVisibility}" />
+                        <TextBlock
+                            FontFamily="{StaticResource RobotoFont}"
+                            Foreground="Red"
+                            Text="Номер телефону повинен бути у форматі +380123456789!"
+                            TextTrimming="CharacterEllipsis"
+                            Visibility="{Binding PhoneNumberHeaderRegexVisibility}" />
+                    </Grid>
+                </ui:ControlHelper.Header>
+            </TextBox>
+
+            <!--  Категорія скарги  -->
+            <ComboBox
+                Name="CategoryComboBox"
+                Grid.Row="2"
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                ui:ControlHelper.PlaceholderText="Оберіть тему скарги..."
+                ui:ThemeManager.RequestedTheme="Dark"
+                Cursor="Hand"
+                FontFamily="{StaticResource RobotoFont}"
+                Text="{Binding StatusOfReportText, Mode=TwoWay}"
+                ToolTip="Оберіть відповідну категорію вашої скарги зі списку">
+                <ui:ControlHelper.Header>
+                    <TextBlock
+                        FontFamily="{StaticResource RobotoFont}"
+                        Foreground="Red"
+                        Text="Оберіть тему скарги!"
+                        TextTrimming="CharacterEllipsis"
+                        Visibility="{Binding StatusOfReportHeaderVisibility}" />
+                </ui:ControlHelper.Header>
+                <ComboBoxItem Content="Проблеми з водопостачанням" ToolTip="Відсутність води, низький тиск або аварія на мережі." />
+                <ComboBoxItem Content="Проблеми з теплопостачанням" ToolTip="Холодні батареї, відсутність опалення або перебої." />
+                <ComboBoxItem Content="Проблеми з електропостачанням" ToolTip="Відсутність електроенергії або аварії на лініях." />
+                <ComboBoxItem Content="Проблеми з газопостачанням" ToolTip="Витік газу або перебої в газопостачанні." />
+                <ComboBoxItem Content="Проблеми з водовідведенням (каналізація)" ToolTip="Засмічення або несправність системи каналізації." />
+                <ComboBoxItem Content="Пошкодження ліфтів" ToolTip="Несправність, поломка або зупинка ліфта." />
+                <ComboBoxItem Content="Освітлення у під'їздах або на вулицях" ToolTip="Відсутність або несправність освітлення." />
+                <ComboBoxItem Content="Сміття та прибирання території" ToolTip="Несвоєчасне вивезення сміття або забруднення території." />
+                <ComboBoxItem Content="Ремонт під’їздів (двері, сходи, вікна)" ToolTip="Необхідність ремонту в під’їзді або його елементів." />
+                <ComboBoxItem Content="Проблеми з дахом або протікання" ToolTip="Протікання або пошкодження покрівлі." />
+                <ComboBoxItem Content="Проблеми з опаленням у зимовий період" ToolTip="Відсутність тепла або недостатній рівень обігріву." />
+                <ComboBoxItem Content="Благоустрій дворових територій (дитячі майданчики, лавки, озеленення)" ToolTip="Необхідність ремонту майданчиків або озеленення." />
+                <ComboBoxItem Content="Шум або порушення правил користування будинком" ToolTip="Шумні сусіди або порушення загальних правил." />
+                <ComboBoxItem Content="Проблеми зі стоянкою транспорту" ToolTip="Незаконне паркування або відсутність місць для авто." />
+                <ComboBoxItem Content="Пошкодження фасаду будинку" ToolTip="Тріщини, обвалення або інші пошкодження стін." />
+                <ComboBoxItem Content="Засмічення підвалів або технічних приміщень" ToolTip="Сміття або доступ сторонніх до технічних приміщень." />
+                <ComboBoxItem Content="Проблеми з вентиляцією або кондиціонуванням" ToolTip="Несправність або погана робота вентиляційної системи." />
+                <ComboBoxItem Content="Неякісне надання послуг або завищені тарифи" ToolTip="Неналежна якість послуг або необґрунтовані рахунки." />
+                <ComboBoxItem Content="Сніг та ожеледь у зимовий період" ToolTip="Невчасне прибирання снігу або ожеледі на території." />
+                <ComboBoxItem Content="Проблеми з ремонтом внутрішньобудинкових мереж (труби, проводка)" ToolTip="Необхідність ремонту труб або електропроводки." />
+                <ComboBoxItem Content="Витік газу або підозра на небезпеку" ToolTip="Підозра на витік газу або аварійну ситуацію." />
+                <ComboBoxItem Content="Незаконні перепланування квартир чи будинку" ToolTip="Порушення правил забудови чи перепланування." />
+                <ComboBoxItem Content="Відсутність або пошкодження дорожніх знаків у дворі" ToolTip="Відсутні чи пошкоджені знаки на території двору." />
+                <ComboBoxItem Content="Відсутність регулярного вивезення сміття" ToolTip="Проблеми із вивезенням побутових відходів." />
+                <ComboBoxItem Content="Проблеми з обслуговуванням лічильників" ToolTip="Несправність або необхідність обслуговування лічильників." />
+                <ComboBoxItem Content="Інше" ToolTip="Інші проблеми, які не увійшли до списку" />
+            </ComboBox>
+
+            <!--  Короткий опис скарги  -->
+            <TextBox
+                Name="ShortDescriptionTextBox"
+                Grid.Row="3"
+                Margin="5"
+                VerticalContentAlignment="Center"
+                ui:ControlHelper.PlaceholderText="Введіть коротке повідомлення скарги..."
+                ui:ThemeManager.RequestedTheme="Dark"
+                FontFamily="{StaticResource RobotoFont}"
+                MaxLength="300"
+                Text="{Binding SmallDescriptionText, Mode=TwoWay}"
+                ToolTip="Для того щоб ЖКХ зрозуміли точно у чому проблема опишіть її коротко у цьому полі...">
+                <ui:ControlHelper.Header>
+                    <TextBlock
+                        FontFamily="{StaticResource RobotoFont}"
+                        Foreground="Red"
+                        Text="Напишіть коротку тему скарги!"
+                        TextTrimming="CharacterEllipsis"
+                        Visibility="{Binding SmallDescriptionHeaderVisibility}" />
+                </ui:ControlHelper.Header>
+            </TextBox>
+
+            <!--  Прикріпити фото  -->
+            <Button
+                Grid.Row="4"
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="#66000000"
+                BorderBrush="#99FFFFFF"
+                Command="{Binding SelectImageCommand}"
+                Cursor="Hand"
+                ToolTip="Натисніть, щоб прикріпити фото для підтвердження скарги">
+                <Grid>
+                    <Image Source="{Binding ImagePath, Mode=TwoWay}" />
+                    <TextBlock
+                        FontFamily="{StaticResource RobotoFont}"
+                        Foreground="White"
+                        Text="Натисніть щоб прикріпити фото скарги..."
+                        TextTrimming="CharacterEllipsis"
+                        Visibility="{Binding TextImageVisibility}" />
+                </Grid>
+            </Button>
+
+            <!--  Надіслати заявку  -->
+            <Button
+                Grid.Row="5"
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="#66000000"
+                BorderBrush="#99FFFFFF"
+                Command="{Binding SubmitReportCommand}"
+                Cursor="Hand"
+                ToolTip="Натисніть, щоб відправити вашу заявку на обробку">
+                <TextBlock
+                    FontFamily="{StaticResource RobotoFont}"
+                    Foreground="White"
+                    Text="Надіслати заявку"
+                    TextTrimming="CharacterEllipsis" />
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>
